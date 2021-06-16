@@ -21,13 +21,12 @@ namespace OW.IntelliVending.DataReader
 
             JObject obj = JObject.Parse(jsonFile);
 
-            var jsonArray = JArray.Parse(obj["partners"].ToString());
+            var jsonArray = JArray.Parse(obj["transactions"].ToString());
             List<VTransaction> items = new List<VTransaction>();
 
             foreach (var jToken in jsonArray)
             {
-                var partner = JsonConvert.DeserializeObject<Partner>(jToken.ToString());
-                items.AddRange(partner.supplies);
+                items.Add(JsonConvert.DeserializeObject<VTransaction>(jToken.ToString()));
             }
 
             return items;
